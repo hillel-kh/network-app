@@ -1,4 +1,4 @@
-const hostUrl = 'http://localhost:3000'
+const hostUrl = 'http://localhost:3000';
 
 module.exports = {
   loadPosts() {
@@ -6,6 +6,14 @@ module.exports = {
   },
 
   loadPost(id) {
-    return null
+    return fetch(`${hostUrl}/posts/${id}`).then(r => r.json())
+  },
+
+  setPost(title, author) {
+    return fetch(`${hostUrl}/posts`, {
+      method: 'POST',
+      body: JSON.stringify({ title, author }),
+      headers: { "Content-Type": "application/json" }
+    });
   }
 }

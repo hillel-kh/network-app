@@ -11,29 +11,32 @@
         <a :href="`/post?id=${post.id}`">{{ post.title }}</a>
       </li>
     </ul>
+    <div>
+      <a href="/new-post">create new post</a>
+    </div>
 
   </div>
 </template>
 
 <script>
-import api from './api'
+  import api from './api';
 
-export default {
-  data: () => ({
-    posts: null
-  }),
+  export default {
+    data: () => ({
+      posts: null
+    }),
 
-  created() {
-    api.loadPosts().then(posts => {
-      this.posts = posts
-    })
+    created() {
+      api.loadPosts().then(posts => {
+        this.posts = posts;
+      })
+    }
   }
-}
 </script>
 
 <style scoped>
-.home-page {
-  width: 400px;
-  margin: 2em auto;
-}
+  .home-page {
+    width: 400px;
+    margin: 2em auto;
+  }
 </style>
