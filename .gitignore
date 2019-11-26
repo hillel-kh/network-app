@@ -3,3 +3,5 @@
 /dist/
 /db.json
 /package-lock.json
+.idea
+.vscode
