@@ -15,5 +15,18 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.2",
     "vue-template-compiler": "^2.6.10"
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hillel-kh/network-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hillel-kh/network-app/issues"
+  },
+  "homepage": "https://github.com/hillel-kh/network-app#readme",
+  "description": ""
 }

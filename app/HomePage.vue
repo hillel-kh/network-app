@@ -12,17 +12,34 @@
       </li>
     </ul>
 
+    <div class="form-wrapper">
+      <input type="text" ref="postTitle">
+      <button @click="addPost">send post</button>
+    </div>
+
+
   </div>
 </template>
 
 <script>
 import api from './api'
-
 export default {
   data: () => ({
     posts: null
   }),
-
+  methods: {
+    addPost() {
+      fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+          id: this.posts.length + 1,
+          title: this.$refs.postTitle.value,
+          author: 'someone'
+        })
+      });
+    }
+  },
   created() {
     api.loadPosts().then(posts => {
       this.posts = posts
