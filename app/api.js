@@ -6,6 +6,10 @@ module.exports = {
   },
 
   loadPost(id) {
-    return null
+    return fetch(`${hostUrl}/posts/${id}`).then(r => r.json())
+  },
+
+  loadComments(postId) {
+    return fetch(`${hostUrl}/comments?postId=${postId}`).then(r => r.json())
   }
 }
