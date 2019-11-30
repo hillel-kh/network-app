@@ -12,6 +12,11 @@
       </li>
     </ul>
 
+    <form class="postForm">
+      <h2>Write your title</h2>
+      <input v-model="postText"></input>
+      <button @click.prevent="sendPost()">Send</button>
+    </form>
   </div>
 </template>
 
@@ -20,8 +25,26 @@ import api from './api'
 
 export default {
   data: () => ({
-    posts: null
+    posts: null,
+    postText: '',
+    profile: ''
   }),
+
+  methods: {
+    sendPost() {
+      this.profile = prompt('Who you are?');
+      fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({ title: this.postText, author: this.profile })
+      }).then(r => {
+        api.loadPosts().then(posts => {
+          this.posts = posts
+        })}
+      );
+      this.postText = '';
+    },
+  }, 
 
   created() {
     api.loadPosts().then(posts => {
@@ -35,5 +58,10 @@ export default {
 .home-page {
   width: 400px;
   margin: 2em auto;
+}
+.postForm > button{
+  display: block;
+  padding: 5px 10px;
+  margin-top: 5px; 
 }
 </style>
