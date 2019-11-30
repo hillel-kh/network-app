@@ -14,8 +14,8 @@
 
     <form class="postForm">
       <h2>Write your title</h2>
-      <input v-model="postText"></input>
-      <button @click.prevent="sendPost()">Send</button>
+      <input v-model="postText">
+      <button @click.prevent="sendPost()">Post</button>
     </form>
   </div>
 </template>
@@ -27,21 +27,19 @@ export default {
   data: () => ({
     posts: null,
     postText: '',
-    profile: ''
   }),
 
   methods: {
     sendPost() {
-      this.profile = prompt('Who you are?');
+      const postAuthor = prompt('Who you are?');
       fetch('http://localhost:3000/posts', {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({ title: this.postText, author: this.profile })
+        body: JSON.stringify({ title: this.postText, author: postAuthor })
       }).then(r => {
         api.loadPosts().then(posts => {
-          this.posts = posts
-        })}
-      );
+          this.posts = posts})
+        });
       this.postText = '';
     },
   }, 

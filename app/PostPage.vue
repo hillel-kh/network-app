@@ -9,7 +9,7 @@
     </div>
     <div>
       <span>Comments:</span>
-      <div v-if="!comments ||comments.length === 0">Here is no comments</div>
+      <div v-if="!comments || comments.length === 0">Here is no comments. You can write the first one:)</div>
       <div v-else>
         <div v-for="comment in comments" class="comment" :key="comment.id">
           <p>Comment id: {{ comment.id }}</p>
@@ -17,6 +17,10 @@
           <p>Post id: {{ comment.postId }}</p>
         </div>
       </div>
+      <form>
+      <textarea rows="10" cols="45" class="newComment" v-model="commentText"></textarea>
+      <button @click.prevent="sendComment()" class="commentButton">push</button>
+    </form>
     </div>
   </div>
 </template>
@@ -29,13 +33,27 @@ export default {
 
   data: () => ({
     post: null,
-    comments: null
+    comments: null,
+    commentText: ''
   }),
+
+  methods: {
+    sendComment() {
+      fetch('http://localhost:3000/comments', {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({ body: this.commentText, postId: parseInt(this.id) })
+      }).then(r => {
+        api.loadComments(this.id).then(comments => {
+          this.comments = comments})
+        });
+      this.commentText = '';
+    }
+  },
 
   created() {
     api.loadPost(this.id).then(posts => {
       this.post = posts
-      console.log(this.post)
     }),
     api.loadComments(this.id).then(comments => {
       this.comments = comments
@@ -53,5 +71,11 @@ export default {
   border: 1px solid black;
   padding: 5px;
   margin-bottom: 10px;
+}
+.newComment {
+  display: block;
+}
+.commentButton {
+  padding: 10px 15px;
 }
 </style>
