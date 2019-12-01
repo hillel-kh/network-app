@@ -1,9 +1,7 @@
 <template>
   <div class="post-page">
     <a href="/">Back</a>
-    <p v-if="!post">loading</p>
 
-    <!--<p>Post #{{ id }}</p>-->
     <h1>{{post.title}}</h1>
     <p>{{post.author}}</p>
   </div>
