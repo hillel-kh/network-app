@@ -6,6 +6,6 @@ module.exports = {
   },
 
   loadPost(id) {
-    return null
+    return fetch(`${hostUrl}/posts/${id}`).then(r => r.json())
   }
 }

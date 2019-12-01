@@ -1,17 +1,29 @@
 <template>
   <div class="post-page">
     <a href="/">Back</a>
-    <p>Post #{{ id }}</p>
+    <p v-if="!post">loading</p>
+
+    <!--<p>Post #{{ id }}</p>-->
+    <h1>{{post.title}}</h1>
+    <p>{{post.author}}</p>
   </div>
 </template>
 
 <script>
+import api from './api'
+
 export default {
   props: ['id'],
 
   data: () => ({
     post: null
-  })
+  }),
+
+  created() {
+    api.loadPost(this.id).then(post => {
+      this.post = post
+    })
+  }
 }
 </script>
 
